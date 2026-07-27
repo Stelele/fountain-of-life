@@ -1,0 +1,17 @@
+{
+  "name": "Fountain of Life Church",
+  "short_name": "Fountain of Life",
+  "description": "Fountain of Life Church — sermons, updates, and community",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#1a2a4a",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}
