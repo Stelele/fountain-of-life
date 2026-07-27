@@ -14,9 +14,8 @@ function getFirstVideoId(xml: string): string | null {
   const parser = new DOMParser()
   const doc = parser.parseFromString(xml, 'text/xml')
   const entries = doc.getElementsByTagName('entry')
-  if (entries.length === 0) return null
-  const firstEntry = entries[0]
-  const videoIdEl = firstEntry.getElementsByTagName('yt:videoId')[0]
+  if (entries.length === 0 || !entries[0]) return null
+  const videoIdEl = entries[0].getElementsByTagName('yt:videoId')[0]
   return videoIdEl?.textContent || null
 }
 
