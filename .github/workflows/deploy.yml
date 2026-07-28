@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build-and-deploy:
@@ -44,3 +44,4 @@ jobs:
           git push origin main
         env:
           PAT: ${{ secrets.PAT }}
+          BUILD_REPO: ${{ secrets.BUILD_REPO }}

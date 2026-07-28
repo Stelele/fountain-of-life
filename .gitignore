@@ -46,3 +46,5 @@ auto-imports.d.ts
 components.d.ts
 .nuxt
 dev-dist
+
+.env
