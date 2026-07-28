@@ -7,7 +7,8 @@ function getRssUrl(): string {
   if (import.meta.env.DEV) {
     return `/api/youtube-rss?channel_id=${channelId}`
   }
-  return `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`
+  const rss = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`
+  return `https://api.allorigins.win/raw?url=${encodeURIComponent(rss)}`
 }
 
 function getFirstVideoId(xml: string): string | null {

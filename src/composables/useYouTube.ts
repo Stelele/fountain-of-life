@@ -8,7 +8,8 @@ function getRssUrl(): string {
   if (import.meta.env.DEV) {
     return `/api/youtube-rss?channel_id=${YOUTUBE_CHANNEL_ID}`
   }
-  return `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`
+  const rss = `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`
+  return `https://api.allorigins.win/raw?url=${encodeURIComponent(rss)}`
 }
 
 function getTagValue(parent: Element, tagName: string): string {
@@ -48,7 +49,11 @@ export function useYouTube() {
     error.value = null
 
     try {
-      const response = await fetch(getRssUrl())
+      let response = await fetch(getRssUrl())
+      if (!response.ok && !import.meta.env.DEV) {
+        const directUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`
+        response = await fetch(directUrl)
+      }
       if (!response.ok) throw new Error('RSS feed unavailable')
       const xml = await response.text()
       const rssVideos = xmlToVideos(xml)
