@@ -4,20 +4,12 @@ import type { Video } from '@/types'
 const YOUTUBE_CHANNEL_ID = import.meta.env.VITE_YOUTUBE_CHANNEL_ID || 'UCOAoHXW3nCre1EACIn-soIQ'
 const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY || ''
 
-function getRssUrl(): string {
-  if (import.meta.env.DEV) {
-    return `/api/youtube-rss?channel_id=${YOUTUBE_CHANNEL_ID}`
-  }
-  const rss = `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`
-  return `https://api.allorigins.win/raw?url=${encodeURIComponent(rss)}`
-}
-
 function getTagValue(parent: Element, tagName: string): string {
   const el = parent.getElementsByTagName(tagName)[0]
   return el?.textContent || ''
 }
 
-function xmlToVideos(xml: string): Video[] {
+function parseDevXml(xml: string): Video[] {
   const parser = new DOMParser()
   const doc = parser.parseFromString(xml, 'text/xml')
   const entries = doc.getElementsByTagName('entry')
@@ -29,8 +21,20 @@ function xmlToVideos(xml: string): Video[] {
     const linkEl = entry.getElementsByTagName('link')[0]
     const url = linkEl?.getAttribute('href') || ''
     const thumbnail = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
-
     return { id, title, thumbnail, publishedAt, url }
+  })
+}
+
+function parseProdJson(data: any): Video[] {
+  return data.items.map((item: any) => {
+    const id = item.guid?.replace('yt:video:', '') || ''
+    return {
+      id,
+      title: item.title,
+      thumbnail: item.thumbnail || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+      publishedAt: item.pubDate,
+      url: item.link,
+    }
   })
 }
 
@@ -49,17 +53,24 @@ export function useYouTube() {
     error.value = null
 
     try {
-      let response = await fetch(getRssUrl())
-      if (!response.ok && !import.meta.env.DEV) {
-        const directUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`
-        response = await fetch(directUrl)
-      }
-      if (!response.ok) throw new Error('RSS feed unavailable')
-      const xml = await response.text()
-      const rssVideos = xmlToVideos(xml)
-      videos.value = rssVideos
-      rssLoaded.value = true
+      const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`
+      let response: Response
 
+      if (import.meta.env.DEV) {
+        response = await fetch(`/api/youtube-rss?channel_id=${YOUTUBE_CHANNEL_ID}`)
+        if (!response.ok) throw new Error('RSS feed unavailable')
+        const xml = await response.text()
+        videos.value = parseDevXml(xml)
+      } else {
+        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`
+        response = await fetch(apiUrl)
+        if (!response.ok) throw new Error('RSS feed unavailable')
+        const data = await response.json()
+        if (data.status !== 'ok') throw new Error('RSS feed unavailable')
+        videos.value = parseProdJson(data)
+      }
+
+      rssLoaded.value = true
       if (YOUTUBE_API_KEY) {
         hasMore.value = true
       }
