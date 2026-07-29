@@ -5,7 +5,7 @@ import { CHURCH_ADDRESS } from '@/data/churchInfo'
 <template>
   <UCard>
     <template #header>
-      <h2 class="text-navy text-lg font-semibold">Location</h2>
+      <h2 class="text-highlighted text-lg font-semibold">Location</h2>
     </template>
     <div class="aspect-video w-full overflow-hidden rounded-lg bg-gray-100">
       <iframe

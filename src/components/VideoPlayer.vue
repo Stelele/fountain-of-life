@@ -13,10 +13,9 @@ defineEmits<{
 <template>
   <UModal
     :open="video !== null"
+    :dismissible="true"
+    :ui="{ overlay: 'bg-black/80', content: 'w-[80vw] max-w-none bg-black' }"
     @update:open="$emit('close')"
-    :ui="{
-      content: 'w-[80vw] max-w-none',
-    }"
   >
     <template #body>
       <div v-if="video" class="h-[70vh] w-full">

@@ -38,7 +38,7 @@ function formatDate(dateStr: string): string {
       </div>
     </div>
     <div class="p-3">
-      <p class="text-navy line-clamp-2 text-sm font-medium">{{ video.title }}</p>
+      <p class="text-highlighted line-clamp-2 text-sm font-medium">{{ video.title }}</p>
       <p class="mt-1 text-xs text-neutral-500">{{ formatDate(video.publishedAt) }}</p>
     </div>
   </UCard>

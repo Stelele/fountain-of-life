@@ -17,7 +17,7 @@ defineProps<{
       <UIcon :name="icon" :class="[iconColorClass, 'text-2xl']" />
     </div>
     <div>
-      <p class="text-navy font-medium">{{ title }}</p>
+      <p class="text-highlighted font-medium">{{ title }}</p>
       <p class="text-sm text-neutral-500">{{ description }}</p>
       <UButton
         :icon="buttonIcon"

@@ -23,7 +23,7 @@ function isActive(to: string): boolean {
     <div class="mx-auto flex max-w-6xl items-center justify-between px-8 py-3">
       <router-link to="/" aria-label="Fountain of Life — Home" class="flex items-center gap-3">
         <LogoIcon class="h-9 w-9" />
-        <span class="text-navy text-lg font-bold" aria-hidden="true">Fountain of Life</span>
+        <span class="text-highlighted text-lg font-bold" aria-hidden="true">Fountain of Life</span>
       </router-link>
       <nav aria-label="Main navigation" class="flex items-center gap-2">
         <UNavigationMenu :items="items" orientation="horizontal" class="gap-1" />
@@ -57,7 +57,7 @@ function isActive(to: string): boolean {
         variant="ghost"
         color="neutral"
         class="flex-col gap-0.5 px-2 py-2 min-w-0 text-[11px]"
-        :class="isActive(item.to) ? 'text-navy' : 'text-gray-400'"
+        :class="isActive(item.to) ? 'text-highlighted' : 'text-gray-400'"
       >
         {{ item.label }}
       </UButton>

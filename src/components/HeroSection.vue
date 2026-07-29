@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import LogoIcon from '@/components/LogoIcon.vue'
-import { CHURCH_NAME, CHURCH_TAGLINE } from '@/data/churchInfo'
+import { CHURCH_NAME } from '@/data/churchInfo'
 </script>
 
 <template>
   <UPageHero
     :title="CHURCH_NAME"
-    :description="CHURCH_TAGLINE"
     :ui="{
-      wrapper: 'hero-gradient text-center',
+      wrapper: 'bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-center',
       title: 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]',
-      description: 'text-sky drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]',
     }"
   >
     <template #top>

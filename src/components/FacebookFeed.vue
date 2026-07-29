@@ -6,14 +6,14 @@ import SocialLinkCard from '@/components/SocialLinkCard.vue'
 <template>
   <UCard>
     <template #header>
-      <h2 class="text-navy text-lg font-semibold">Connect With Us</h2>
+      <h2 class="text-highlighted text-lg font-semibold">Connect With Us</h2>
     </template>
 
     <div class="space-y-6 py-4">
       <SocialLinkCard
         icon="i-lucide-facebook"
-        icon-bg-class="bg-facebook/10"
-        icon-color-class="text-facebook"
+        icon-bg-class="bg-[#1877F2]/10"
+        icon-color-class="text-[#1877F2]"
         title="Follow us on Facebook"
         description="Stay updated with sermons, events, and community news"
         button-label="Open Facebook"
@@ -25,8 +25,8 @@ import SocialLinkCard from '@/components/SocialLinkCard.vue'
 
       <SocialLinkCard
         icon="i-lucide-play"
-        icon-bg-class="bg-youtube/10"
-        icon-color-class="text-youtube"
+        icon-bg-class="bg-[#FF0000]/10"
+        icon-color-class="text-[#FF0000]"
         title="Watch on YouTube"
         description="Subscribe for sermons, worship, and messages"
         button-label="Open YouTube"
@@ -38,8 +38,8 @@ import SocialLinkCard from '@/components/SocialLinkCard.vue'
 
       <SocialLinkCard
         icon="i-lucide-message-circle"
-        icon-bg-class="bg-whatsapp/10"
-        icon-color-class="text-whatsapp"
+        icon-bg-class="bg-[#25D366]/10"
+        icon-color-class="text-[#25D366]"
         title="Chat on WhatsApp"
         description="Send us a message, we'd love to hear from you"
         :button-label="WHATSAPP_DISPLAY"

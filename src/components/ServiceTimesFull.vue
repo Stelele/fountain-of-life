@@ -5,7 +5,7 @@ import { SERVICE_TIMES } from '@/data/churchInfo'
 <template>
   <UCard>
     <template #header>
-      <h2 class="text-navy text-lg font-semibold">Service Times</h2>
+      <h2 class="text-highlighted text-lg font-semibold">Service Times</h2>
     </template>
     <UTable
       :data="SERVICE_TIMES"

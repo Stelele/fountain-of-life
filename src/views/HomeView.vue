@@ -1,12 +1,17 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import HeroSection from '@/components/HeroSection.vue'
 import ServiceTimesCard from '@/components/ServiceTimesCard.vue'
+import WelcomeSection from '@/components/WelcomeSection.vue'
+import VisitorCardModal from '@/components/VisitorCardModal.vue'
+import AboutApostleSection from '@/components/AboutApostleSection.vue'
 import EventsSection from '@/components/EventsSection.vue'
 import TestimonialsSection from '@/components/TestimonialsSection.vue'
 import GiveSection from '@/components/GiveSection.vue'
 import NewsletterSection from '@/components/NewsletterSection.vue'
+import ClosingBanner from '@/components/ClosingBanner.vue'
 import AppFooter from '@/components/AppFooter.vue'
-import { CHURCH_SCRIPTURE } from '@/data/churchInfo'
+const showVisitorForm = ref(false)
 </script>
 
 <template>
@@ -14,22 +19,15 @@ import { CHURCH_SCRIPTURE } from '@/data/churchInfo'
     <HeroSection />
     <ServiceTimesCard />
 
-    <UPageBody class="mt-8 text-center">
-      <h2 class="mb-2 text-navy text-xl font-semibold md:text-2xl">Welcome</h2>
-      <p class="text-neutral-500 leading-relaxed md:text-lg">
-        We are a community of believers dedicated to knowing Christ and making Him known.
-        Whether you're seeking a church home or exploring faith for the first time,
-        you are welcome here.
-      </p>
-      <p class="mt-3 text-sm text-neutral-500 md:text-base">
-        {{ CHURCH_SCRIPTURE }} — "The time is fulfilled, and the kingdom of God is at hand; repent and believe in the gospel."
-      </p>
-    </UPageBody>
-
+    <WelcomeSection @open-visitor="showVisitorForm = true" />
+    <AboutApostleSection />
     <EventsSection />
     <TestimonialsSection />
     <GiveSection />
     <NewsletterSection />
+    <ClosingBanner />
     <AppFooter />
+
+    <VisitorCardModal v-model:open="showVisitorForm" />
   </div>
 </template>

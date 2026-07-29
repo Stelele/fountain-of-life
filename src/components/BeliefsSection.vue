@@ -22,14 +22,14 @@ const beliefs = [
 <template>
   <UCard>
     <template #header>
-      <h2 class="text-navy text-lg font-semibold">What We Believe</h2>
+      <h2 class="text-highlighted text-lg font-semibold">What We Believe</h2>
     </template>
 
     <UAccordion :items="beliefs" />
 
     <template #footer>
       <div>
-        <h3 class="mb-2 font-semibold text-navy">Our Vision</h3>
+        <h3 class="mb-2 font-semibold text-highlighted">Our Vision</h3>
         <p class="text-sm leading-relaxed text-neutral-500">
           To be a fountain of living water — a community where lives are transformed by the love
           of Christ, where believers grow in faith, and where we reach out with compassion to our
