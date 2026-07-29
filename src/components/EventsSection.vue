@@ -12,7 +12,7 @@ const gatherings = [
       <p class="mb-6 text-center text-sm text-zinc-500">Join us as we worship, learn, and grow together</p>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <UCard v-for="gathering in gatherings" :key="gathering.title" class="bg-default">
-          <UBadge variant="subtle" color="primary" class="mb-2">{{ gathering.time }}</UBadge>
+          <UBadge variant="solid" color="primary" class="mb-2 text-highlighted">{{ gathering.time }}</UBadge>
           <h3 class="text-highlighted font-semibold">{{ gathering.title }}</h3>
           <p class="mt-1 text-sm text-zinc-500">{{ gathering.description }}</p>
         </UCard>

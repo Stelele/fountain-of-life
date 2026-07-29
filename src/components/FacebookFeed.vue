@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { WHATSAPP_URL, FACEBOOK_URL, YOUTUBE_CHANNEL_URL, WHATSAPP_DISPLAY } from '@/data/churchInfo'
+import { WHATSAPP_GROUP_URL, FACEBOOK_URL, YOUTUBE_CHANNEL_URL, WHATSAPP_DISPLAY } from '@/data/churchInfo'
 import SocialLinkCard from '@/components/SocialLinkCard.vue'
 </script>
 
@@ -40,11 +40,11 @@ import SocialLinkCard from '@/components/SocialLinkCard.vue'
         icon="i-lucide-message-circle"
         icon-bg-class="bg-primary/10"
         icon-color-class="text-primary"
-        title="Chat on WhatsApp"
-        description="Send us a message, we'd love to hear from you"
-        :button-label="WHATSAPP_DISPLAY"
+        title="Join our WhatsApp Group"
+        description="Daily devotion, prayer requests, and church updates"
+        button-label="Join Group"
         button-icon="i-lucide-message-circle"
-        :url="WHATSAPP_URL"
+        :url="WHATSAPP_GROUP_URL"
       />
     </div>
   </UCard>

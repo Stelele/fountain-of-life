@@ -3,7 +3,7 @@ import { SERVICE_TIMES } from '@/data/churchInfo'
 </script>
 
 <template>
-  <UCard class="mx-4 mt-6">
+  <UCard class="mx-4 mt-2">
     <template #header>
       <h2 class="text-highlighted text-lg font-semibold pt-1">Service Times</h2>
     </template>
@@ -18,7 +18,7 @@ import { SERVICE_TIMES } from '@/data/churchInfo'
           <p class="text-highlighted font-medium">{{ service.day }}</p>
           <p class="text-sm text-zinc-500">{{ service.description }}</p>
         </div>
-        <UBadge color="primary" variant="subtle">
+        <UBadge color="primary" variant="solid" class="text-highlighted">
           {{ service.time }}
         </UBadge>
       </div>

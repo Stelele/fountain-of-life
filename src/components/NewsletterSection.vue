@@ -2,7 +2,7 @@
   <UPageCTA
     title="Stay Connected"
     description="Join our WhatsApp community for daily devotion, prayer requests, and church updates"
-    class="bg-primary-900"
+    class="bg-primary-100"
   >
     <UButton
       icon="i-lucide-message-circle"

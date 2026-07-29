@@ -10,6 +10,12 @@ export default defineConfig(({ mode }) => ({
     vue(),
     vueDevTools(),
     ui({
+      ui: {
+        colors: {
+          primary: 'yellow',
+          neutral: 'zinc',
+        },
+      },
       colorMode: false,
     }),
     VitePWA({
