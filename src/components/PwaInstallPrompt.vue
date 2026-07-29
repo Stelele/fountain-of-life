@@ -17,6 +17,7 @@ function handleInstall() {
     color="primary"
     variant="subtle"
     class="mx-4 mt-2"
+    :ui="{ title: 'text-gray-900 dark:text-gray-100', description: 'text-gray-700 dark:text-gray-300', icon: 'text-amber-600 dark:text-amber-400' }"
   >
     <template #close>
       <UButton icon="i-lucide-x" color="neutral" variant="link" @click="dismiss" />
@@ -32,7 +33,8 @@ function handleInstall() {
     variant="subtle"
     orientation="horizontal"
     class="mx-4 mt-2"
-    :actions="[{ label: 'Install', onClick: handleInstall }]"
+    :ui="{ title: 'text-gray-900 dark:text-gray-100', description: 'text-gray-700 dark:text-gray-300', icon: 'text-amber-600 dark:text-amber-400' }"
+    :actions="[{ label: 'Install', color: 'neutral', variant: 'solid', onClick: handleInstall }]"
   >
     <template #close>
       <UButton icon="i-lucide-x" color="neutral" variant="link" @click="dismiss" />
