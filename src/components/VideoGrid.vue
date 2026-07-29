@@ -13,6 +13,7 @@ defineProps<{
 defineEmits<{
   select: [video: Video]
   loadMore: []
+  retry: []
 }>()
 </script>
 
@@ -32,13 +33,13 @@ defineEmits<{
 
     <div v-else-if="error" class="flex flex-col items-center gap-3 py-12 text-center">
       <UIcon name="i-lucide-alert-circle" class="text-4xl text-gray-400" />
-      <p class="text-gray-500">Videos temporarily unavailable</p>
-      <UButton variant="outline" @click="$emit('loadMore')">Retry</UButton>
+      <p class="text-neutral-500">{{ error }}</p>
+      <UButton variant="outline" @click="$emit('retry')">Retry</UButton>
     </div>
 
     <div v-else-if="videos.length === 0" class="flex flex-col items-center gap-3 py-12 text-center">
       <UIcon name="i-lucide-video-off" class="text-4xl text-gray-400" />
-      <p class="text-gray-500">Check back soon for new videos</p>
+      <p class="text-neutral-500">Check back soon for new videos</p>
     </div>
 
     <template v-else>

@@ -40,11 +40,29 @@ export default defineConfig(({ mode }) => ({
             },
           },
           {
-            urlPattern: /^https:\/\/www\.youtube\.com\/feeds\/.*/,
+            urlPattern: /^https:\/\/api\.rss2json\.com\/.*/,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'youtube-rss',
               expiration: { maxEntries: 5, maxAgeSeconds: 60 * 60 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/www\.youtube\.com\/feeds\/.*/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'youtube-rss-direct',
+              expiration: { maxEntries: 5, maxAgeSeconds: 60 * 60 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/www\.googleapis\.com\/youtube\/.*/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'youtube-api',
+              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 24 },
               cacheableResponse: { statuses: [0, 200] },
             },
           },

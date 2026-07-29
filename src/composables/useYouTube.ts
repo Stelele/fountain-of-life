@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import type { Video } from '@/types'
+import { YOUTUBE_CHANNEL_ID } from '@/data/churchInfo'
 
-const YOUTUBE_CHANNEL_ID = import.meta.env.VITE_YOUTUBE_CHANNEL_ID || 'UCOAoHXW3nCre1EACIn-soIQ'
 const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY || ''
 
 function getTagValue(parent: Element, tagName: string): string {
@@ -20,22 +20,39 @@ function parseDevXml(xml: string): Video[] {
     const publishedAt = getTagValue(entry, 'published')
     const linkEl = entry.getElementsByTagName('link')[0]
     const url = linkEl?.getAttribute('href') || ''
-    const thumbnail = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
+    const thumbnail = id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : ''
     return { id, title, thumbnail, publishedAt, url }
-  })
+  }).filter((v) => v.id)
 }
 
-function parseProdJson(data: any): Video[] {
-  return data.items.map((item: any) => {
+interface Rss2JsonItem {
+  guid: string
+  title: string
+  pubDate: string
+  link: string
+  thumbnail: string
+}
+
+function parseProdJson(data: { items: Rss2JsonItem[] }): Video[] {
+  return (data.items || []).map((item) => {
     const id = item.guid?.replace('yt:video:', '') || ''
     return {
       id,
       title: item.title,
-      thumbnail: item.thumbnail || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+      thumbnail: item.thumbnail || (id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : ''),
       publishedAt: item.pubDate,
       url: item.link,
     }
-  })
+  }).filter((v) => v.id)
+}
+
+interface YouTubeApiItem {
+  snippet: {
+    resourceId: { videoId: string }
+    title: string
+    thumbnails?: { medium?: { url: string }; default?: { url: string } }
+    publishedAt: string
+  }
 }
 
 export function useYouTube() {
@@ -45,35 +62,31 @@ export function useYouTube() {
   const error = ref<string | null>(null)
   const nextPageToken = ref<string | null>(null)
   const hasMore = ref(false)
-  const rssLoaded = ref(false)
+  let rssLoaded = false
 
   async function fetchRSS(): Promise<void> {
-    if (rssLoaded.value) return
+    if (rssLoaded) return
     loading.value = true
     error.value = null
 
     try {
       const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`
-      let response: Response
 
       if (import.meta.env.DEV) {
-        response = await fetch(`/api/youtube-rss?channel_id=${YOUTUBE_CHANNEL_ID}`)
+        const response = await fetch(`/api/youtube-rss?channel_id=${YOUTUBE_CHANNEL_ID}`)
         if (!response.ok) throw new Error('RSS feed unavailable')
         const xml = await response.text()
         videos.value = parseDevXml(xml)
       } else {
         const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`
-        response = await fetch(apiUrl)
+        const response = await fetch(apiUrl)
         if (!response.ok) throw new Error('RSS feed unavailable')
         const data = await response.json()
         if (data.status !== 'ok') throw new Error('RSS feed unavailable')
         videos.value = parseProdJson(data)
       }
 
-      rssLoaded.value = true
-      if (YOUTUBE_API_KEY) {
-        hasMore.value = true
-      }
+      rssLoaded = true
     } catch (e) {
       error.value = e instanceof Error ? e.message : 'Failed to load videos'
     } finally {
@@ -84,6 +97,7 @@ export function useYouTube() {
   async function loadMore(): Promise<void> {
     if (!YOUTUBE_API_KEY || loadingMore.value) return
     loadingMore.value = true
+    error.value = null
 
     try {
       const uploadsPlaylistId = YOUTUBE_CHANNEL_ID.replace(/^UC/, 'UU')
@@ -93,23 +107,25 @@ export function useYouTube() {
       }
 
       const response = await fetch(url)
-      if (!response.ok) throw new Error('API quota exceeded')
+      if (!response.ok) throw new Error('Unable to load more videos')
 
       const data = await response.json()
       nextPageToken.value = data.nextPageToken || null
-      hasMore.value = !!data.nextPageToken
+      hasMore.value = !!(data.nextPageToken && data.items?.length)
 
-      const apiVideos: Video[] = data.items.map((item: any) => ({
-        id: item.snippet.resourceId.videoId,
-        title: item.snippet.title,
-        thumbnail: item.snippet.thumbnails?.medium?.url || item.snippet.thumbnails?.default?.url || '',
-        publishedAt: item.snippet.publishedAt,
-        url: `https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}`,
-      }))
+      if (data.items?.length) {
+        const apiVideos: Video[] = data.items.map((item: YouTubeApiItem) => ({
+          id: item.snippet.resourceId.videoId,
+          title: item.snippet.title,
+          thumbnail: item.snippet.thumbnails?.medium?.url || item.snippet.thumbnails?.default?.url || '',
+          publishedAt: item.snippet.publishedAt,
+          url: `https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}`,
+        }))
 
-      const existingIds = new Set(videos.value.map((v) => v.id))
-      const newVideos = apiVideos.filter((v: Video) => !existingIds.has(v.id))
-      videos.value = [...videos.value, ...newVideos]
+        const existingIds = new Set(videos.value.map((v) => v.id))
+        const newVideos = apiVideos.filter((v) => !existingIds.has(v.id))
+        videos.value = [...videos.value, ...newVideos]
+      }
     } catch (e) {
       error.value = e instanceof Error ? e.message : 'Failed to load more videos'
     } finally {

@@ -2,21 +2,28 @@
 import SiteNav from '@/components/SiteNav.vue'
 import OfflineBanner from '@/components/OfflineBanner.vue'
 import PwaInstallPrompt from '@/components/PwaInstallPrompt.vue'
+import FloatingWhatsApp from '@/components/FloatingWhatsApp.vue'
 </script>
 
 <template>
   <div class="flex min-h-dvh flex-col">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded focus:bg-navy focus:px-4 focus:py-2 focus:text-white"
+    >
+      Skip to content
+    </a>
     <SiteNav />
+    <FloatingWhatsApp />
     <PwaInstallPrompt />
     <OfflineBanner />
-    <main class="mx-auto w-full max-w-lg flex-1 pb-24 sm:max-w-2xl sm:pb-28 md:max-w-3xl lg:max-w-5xl lg:pb-8 xl:max-w-6xl">
+    <main id="main-content" class="flex-1 pb-24 sm:pb-28 lg:pb-8">
       <router-view v-slot="{ Component }">
         <transition name="page" mode="out-in">
           <component :is="Component" />
         </transition>
       </router-view>
     </main>
-    <div class="h-14 sm:h-16 lg:hidden" />
   </div>
 </template>
 

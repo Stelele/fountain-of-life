@@ -8,6 +8,9 @@
   --color-sky: #7ec8e3;
   --color-gold: #c9a84c;
   --color-cream: #f5f0e1;
+  --color-facebook: #1877F2;
+  --color-youtube: #FF0000;
+  --color-whatsapp: #25D366;
 }
 
 body {
@@ -20,7 +23,6 @@ body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
 .hero-gradient {

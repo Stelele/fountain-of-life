@@ -1,7 +1,11 @@
+<script setup lang="ts">
+import { CHURCH_ADDRESS } from '@/data/churchInfo'
+</script>
+
 <template>
   <UCard>
     <template #header>
-      <h2 class="text-[var(--color-navy)] text-lg font-semibold">Location</h2>
+      <h2 class="text-navy text-lg font-semibold">Location</h2>
     </template>
     <div class="aspect-video w-full overflow-hidden rounded-lg bg-gray-100">
       <iframe
@@ -11,8 +15,10 @@
         class="border-none"
         loading="lazy"
         title="Church location map"
+        sandbox="allow-scripts allow-same-origin"
+        referrerpolicy="no-referrer"
       />
     </div>
-    <p class="mt-3 text-sm text-gray-500">Palace Hotel, Conference Room — First Floor, Harare</p>
+    <p class="mt-3 text-sm text-neutral-500">{{ CHURCH_ADDRESS }}</p>
   </UCard>
 </template>
