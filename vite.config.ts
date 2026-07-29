@@ -20,15 +20,14 @@ export default defineConfig(({ mode }) => ({
     }),
     VitePWA({
       registerType: 'autoUpdate',
+      injectRegister: false,
       devOptions: {
         enabled: mode === 'development',
         type: 'module',
-        navigateFallback: 'index.html',
       },
       manifest: false,
       workbox: {
-        globPatterns: ['**/*.{html,js,css,svg,png,ico,webp,woff2}'],
-        navigateFallback: '/index.html',
+        globPatterns: ['**/*.{js,css,svg,png,ico,webp,woff2}'],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/i\.ytimg\.com\/.*/,
