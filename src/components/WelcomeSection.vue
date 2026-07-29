@@ -27,7 +27,7 @@ defineEmits<{
       <div class="text-center">
         <UIcon name="i-lucide-heart-handshake" class="mx-auto mb-3 text-primary-500 text-3xl" />
         <h3 class="mb-1 text-highlighted font-semibold">First time visiting?</h3>
-        <p class="mb-4 text-sm text-neutral-500">We'd love to know you're coming. Fill out a quick card so we can welcome you personally.</p>
+        <p class="mb-4 text-sm text-zinc-500">We'd love to know you're coming. Fill out a quick card so we can welcome you personally.</p>
         <UButton icon="i-lucide-pencil-line" color="secondary" size="lg" block>
           Fill Visitor Card
         </UButton>

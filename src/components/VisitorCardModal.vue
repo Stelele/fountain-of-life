@@ -49,7 +49,7 @@ function onSubmit(event: FormSubmitEvent<any>): void {
     v-model:open="open"
     title="Visitor Card"
     description="We'd love to welcome you personally"
-    :ui="{ overlay: 'bg-black/70 backdrop-blur-sm', content: 'bg-white' }"
+    :ui="{ overlay: 'bg-zinc-950/70 backdrop-blur-sm', content: 'bg-default' }"
   >
     <template #body>
       <div v-if="submitted" class="flex flex-col items-center gap-4 py-8 text-center">
@@ -57,7 +57,7 @@ function onSubmit(event: FormSubmitEvent<any>): void {
           <UIcon name="i-lucide-check-circle" class="text-primary-500 text-4xl" />
         </div>
         <p class="text-highlighted text-lg font-semibold">Thank you — We're glad you're here!</p>
-        <p class="text-sm text-neutral-500">Opening WhatsApp with your details so we can connect.</p>
+        <p class="text-sm text-zinc-500">Opening WhatsApp with your details so we can connect.</p>
       </div>
 
       <UForm

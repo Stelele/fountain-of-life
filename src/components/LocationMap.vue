@@ -7,7 +7,7 @@ import { CHURCH_ADDRESS } from '@/data/churchInfo'
     <template #header>
       <h2 class="text-highlighted text-lg font-semibold">Location</h2>
     </template>
-    <div class="aspect-video w-full overflow-hidden rounded-lg bg-gray-100">
+    <div class="aspect-video w-full overflow-hidden rounded-lg bg-zinc-100">
       <iframe
         src="https://www.openstreetmap.org/export/embed.html?bbox=30.95,-17.85,31.05,-17.75&layer=mapnik"
         width="100%"
@@ -19,6 +19,6 @@ import { CHURCH_ADDRESS } from '@/data/churchInfo'
         referrerpolicy="no-referrer"
       />
     </div>
-    <p class="mt-3 text-sm text-neutral-500">{{ CHURCH_ADDRESS }}</p>
+    <p class="mt-3 text-sm text-zinc-500">{{ CHURCH_ADDRESS }}</p>
   </UCard>
 </template>

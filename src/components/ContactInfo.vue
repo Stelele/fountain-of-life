@@ -10,7 +10,7 @@ import { WHATSAPP_URL, WHATSAPP_DISPLAY, EMAIL, CHURCH_ADDRESS, FACEBOOK_URL } f
     <div class="space-y-4">
       <div class="flex items-center gap-3">
         <UIcon name="i-lucide-map-pin" class="text-highlighted text-xl" />
-        <p class="text-sm text-neutral-600">{{ CHURCH_ADDRESS }}</p>
+        <p class="text-sm text-zinc-600">{{ CHURCH_ADDRESS }}</p>
       </div>
       <div class="flex items-center gap-3">
         <UIcon name="i-lucide-message-circle" class="text-highlighted text-xl" />

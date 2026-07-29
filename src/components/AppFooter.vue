@@ -8,23 +8,23 @@ import { CHURCH_ADDRESS, WHATSAPP_DISPLAY, FACEBOOK_URL, SERVICE_TIMES, CHURCH_N
       <div class="grid grid-cols-1 gap-8 sm:grid-cols-3">
         <div>
           <h3 class="mb-3 text-highlighted font-semibold">{{ CHURCH_NAME }}</h3>
-          <p class="text-sm text-neutral-500">{{ CHURCH_TAGLINE }}</p>
-          <p class="mt-2 text-sm text-neutral-500">{{ CHURCH_SCRIPTURE }}</p>
+          <p class="text-sm text-zinc-500">{{ CHURCH_TAGLINE }}</p>
+          <p class="mt-2 text-sm text-zinc-500">{{ CHURCH_SCRIPTURE }}</p>
         </div>
         <div>
           <h3 class="mb-3 text-highlighted font-semibold">Service Times</h3>
-          <div class="space-y-1 text-sm text-neutral-500">
+          <div class="space-y-1 text-sm text-zinc-500">
             <p v-for="st in SERVICE_TIMES" :key="st.day + st.time">{{ st.day }} — {{ st.time }}</p>
           </div>
         </div>
         <div>
           <h3 class="mb-3 text-highlighted font-semibold">Connect</h3>
           <div class="space-y-2 text-sm">
-            <div class="flex items-center gap-2 text-neutral-500">
+            <div class="flex items-center gap-2 text-zinc-500">
               <UIcon name="i-lucide-map-pin" class="text-highlighted text-sm" />
               <span>{{ CHURCH_ADDRESS }}</span>
             </div>
-            <div class="flex items-center gap-2 text-neutral-500">
+            <div class="flex items-center gap-2 text-zinc-500">
               <UIcon name="i-lucide-phone" class="text-highlighted text-sm" />
               <a :href="`tel:${WHATSAPP_DISPLAY.replace(/\s/g, '')}`">{{ WHATSAPP_DISPLAY }}</a>
             </div>
@@ -39,7 +39,7 @@ import { CHURCH_ADDRESS, WHATSAPP_DISPLAY, FACEBOOK_URL, SERVICE_TIMES, CHURCH_N
           </div>
         </div>
       </div>
-      <p class="mt-8 text-center text-xs text-neutral-400">{{ CHURCH_NAME }}</p>
+      <p class="mt-8 text-center text-xs text-zinc-400">{{ CHURCH_NAME }}</p>
     </div>
   </footer>
 </template>

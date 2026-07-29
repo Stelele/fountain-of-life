@@ -18,7 +18,7 @@ defineProps<{
     </div>
     <div>
       <p class="text-highlighted font-medium">{{ title }}</p>
-      <p class="text-sm text-neutral-500">{{ description }}</p>
+      <p class="text-sm text-zinc-500">{{ description }}</p>
       <UButton
         :icon="buttonIcon"
         :to="url"

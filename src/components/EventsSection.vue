@@ -9,12 +9,12 @@ const gatherings = [
   <div class="bg-muted py-10">
     <div class="mx-4 sm:mx-8 md:mx-16">
       <h2 class="mb-2 text-center text-highlighted text-xl font-semibold md:text-2xl">Our Gatherings</h2>
-      <p class="mb-6 text-center text-sm text-neutral-500">Join us as we worship, learn, and grow together</p>
+      <p class="mb-6 text-center text-sm text-zinc-500">Join us as we worship, learn, and grow together</p>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <UCard v-for="gathering in gatherings" :key="gathering.title" class="bg-white">
+        <UCard v-for="gathering in gatherings" :key="gathering.title" class="bg-default">
           <UBadge variant="subtle" color="primary" class="mb-2">{{ gathering.time }}</UBadge>
           <h3 class="text-highlighted font-semibold">{{ gathering.title }}</h3>
-          <p class="mt-1 text-sm text-neutral-500">{{ gathering.description }}</p>
+          <p class="mt-1 text-sm text-zinc-500">{{ gathering.description }}</p>
         </UCard>
       </div>
     </div>

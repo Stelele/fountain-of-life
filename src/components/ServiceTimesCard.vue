@@ -8,7 +8,7 @@ import { SERVICE_TIMES } from '@/data/churchInfo'
       <h2 class="text-highlighted text-lg font-semibold pt-1">Service Times</h2>
     </template>
 
-    <div class="divide-y divide-gray-100">
+    <div class="divide-y divide-zinc-100">
       <div
         v-for="service in SERVICE_TIMES"
         :key="service.day + service.time"
@@ -16,7 +16,7 @@ import { SERVICE_TIMES } from '@/data/churchInfo'
       >
         <div>
           <p class="text-highlighted font-medium">{{ service.day }}</p>
-          <p class="text-sm text-neutral-500">{{ service.description }}</p>
+          <p class="text-sm text-zinc-500">{{ service.description }}</p>
         </div>
         <UBadge color="primary" variant="subtle">
           {{ service.time }}

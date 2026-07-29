@@ -19,7 +19,7 @@ function isActive(to: string): boolean {
 
 <template>
   <!-- Desktop: top header -->
-  <header aria-label="Site header" class="hidden border-b border-neutral-200 bg-white lg:block">
+  <header aria-label="Site header" class="hidden border-b border-neutral-200 bg-default lg:block">
     <div class="mx-auto flex max-w-6xl items-center justify-between px-8 py-3">
       <router-link to="/" aria-label="Fountain of Life — Home" class="flex items-center gap-3">
         <LogoIcon class="h-9 w-9" />
@@ -45,7 +45,7 @@ function isActive(to: string): boolean {
   <!-- Mobile: bottom tab bar -->
   <nav
     aria-label="Main navigation"
-    class="fixed bottom-0 left-0 right-0 z-40 border-t border-neutral-200 bg-white lg:hidden"
+    class="fixed bottom-0 left-0 right-0 z-40 border-t border-neutral-200 bg-default lg:hidden"
     :style="{ paddingBottom: 'env(safe-area-inset-bottom, 0)' }"
   >
     <div class="mx-auto flex max-w-lg justify-around">
@@ -57,7 +57,7 @@ function isActive(to: string): boolean {
         variant="ghost"
         color="neutral"
         class="flex-col gap-0.5 px-2 py-2 min-w-0 text-[11px]"
-        :class="isActive(item.to) ? 'text-highlighted' : 'text-gray-400'"
+        :class="isActive(item.to) ? 'text-highlighted' : 'text-zinc-400'"
       >
         {{ item.label }}
       </UButton>

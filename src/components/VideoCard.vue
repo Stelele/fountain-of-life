@@ -26,20 +26,20 @@ function formatDate(dateStr: string): string {
     @keydown.enter.prevent="$emit('select', video)"
     @keydown.space.prevent="$emit('select', video)"
   >
-    <div class="relative aspect-video w-full overflow-hidden bg-gray-100">
+    <div class="relative aspect-video w-full overflow-hidden bg-zinc-100">
       <img
         :src="video.thumbnail"
         :alt="video.title"
         class="h-full w-full object-cover"
         loading="lazy"
       />
-      <div class="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity hover:opacity-100">
-        <UIcon name="i-lucide-play-circle" class="text-white text-5xl" />
+      <div class="absolute inset-0 flex items-center justify-center bg-zinc-950/20 opacity-0 transition-opacity hover:opacity-100">
+        <UIcon name="i-lucide-play-circle" class="text-inverted text-5xl" />
       </div>
     </div>
     <div class="p-3">
       <p class="text-highlighted line-clamp-2 text-sm font-medium">{{ video.title }}</p>
-      <p class="mt-1 text-xs text-neutral-500">{{ formatDate(video.publishedAt) }}</p>
+      <p class="mt-1 text-xs text-zinc-500">{{ formatDate(video.publishedAt) }}</p>
     </div>
   </UCard>
 </template>

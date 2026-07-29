@@ -9,7 +9,7 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp.vue'
   <div class="flex min-h-dvh flex-col">
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded focus:bg-primary-900 focus:px-4 focus:py-2 focus:text-white"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded focus:bg-primary-900 focus:px-4 focus:py-2 focus:text-inverted"
     >
       Skip to content
     </a>

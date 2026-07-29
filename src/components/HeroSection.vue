@@ -8,7 +8,7 @@ import { CHURCH_NAME } from '@/data/churchInfo'
     :title="CHURCH_NAME"
     :ui="{
       wrapper: 'bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-center',
-      title: 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]',
+      title: 'text-inverted drop-shadow-[0_2px_4px_var(--ui-color-neutral-900)]',
     }"
   >
     <template #top>

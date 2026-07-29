@@ -10,13 +10,13 @@ const testimonials = [
   <div class="bg-muted py-10">
     <div class="mx-4 sm:mx-8 md:mx-16">
       <h2 class="mb-2 text-center text-highlighted text-xl font-semibold md:text-2xl">What People Are Saying</h2>
-      <p class="mb-6 text-center text-sm text-neutral-500">Hear from our church family</p>
+      <p class="mb-6 text-center text-sm text-zinc-500">Hear from our church family</p>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <UCard v-for="item in testimonials" :key="item.quote" class="text-center bg-white">
+        <UCard v-for="item in testimonials" :key="item.quote" class="text-center bg-default">
           <UIcon name="i-lucide-quote" class="mx-auto mb-2 text-primary-500 text-2xl" />
-          <p class="text-sm italic text-neutral-500">"{{ item.quote }}"</p>
+          <p class="text-sm italic text-zinc-500">"{{ item.quote }}"</p>
           <p class="mt-2 text-xs font-medium text-highlighted">— {{ item.author }}</p>
-          <p class="text-xs text-neutral-400">{{ item.location }}</p>
+          <p class="text-xs text-zinc-400">{{ item.location }}</p>
         </UCard>
       </div>
     </div>
