@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import type { Video } from '@/types'
 import { YOUTUBE_CHANNEL_ID } from '@/data/churchInfo'
+import { getCachedVideos, setCachedVideos, appendCachedVideos } from '@/services/cache/videoCache'
 
 const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY || ''
 const MAX_RESULTS = 12
@@ -46,17 +47,28 @@ export function useYouTube() {
     error.value = null
 
     try {
+      const cached = await getCachedVideos(YOUTUBE_CHANNEL_ID)
+      if (cached) {
+        videos.value = cached.videos
+        nextPageToken.value = cached.nextPageToken
+        hasMore.value = !!cached.nextPageToken
+        loaded = true
+        loading.value = false
+        return
+      }
+
       const response = await fetch(buildUrl())
       if (!response.ok) throw new Error('Unable to load videos')
 
       const data = await response.json()
-      nextPageToken.value = data.nextPageToken || null
-      hasMore.value = !!(data.nextPageToken && data.items?.length)
+      const items = data.items || []
+      const pageToken = data.nextPageToken || null
 
-      if (data.items?.length) {
-        videos.value = mapItems(data.items)
-      }
+      videos.value = mapItems(items)
+      nextPageToken.value = pageToken
+      hasMore.value = !!(pageToken && items.length)
 
+      await setCachedVideos(YOUTUBE_CHANNEL_ID, videos.value, pageToken)
       loaded = true
     } catch (e) {
       error.value = e instanceof Error ? e.message : 'Failed to load videos'
@@ -75,14 +87,19 @@ export function useYouTube() {
       if (!response.ok) throw new Error('Unable to load more videos')
 
       const data = await response.json()
-      nextPageToken.value = data.nextPageToken || null
-      hasMore.value = !!(data.nextPageToken && data.items?.length)
+      const items = data.items || []
+      const pageToken = data.nextPageToken || null
 
-      if (data.items?.length) {
-        const apiVideos = mapItems(data.items)
+      nextPageToken.value = pageToken
+      hasMore.value = !!(pageToken && items.length)
+
+      if (items.length) {
+        const apiVideos = mapItems(items)
         const existingIds = new Set(videos.value.map((v) => v.id))
         const newVideos = apiVideos.filter((v) => !existingIds.has(v.id))
         videos.value = [...videos.value, ...newVideos]
+
+        await appendCachedVideos(YOUTUBE_CHANNEL_ID, newVideos, pageToken)
       }
     } catch (e) {
       error.value = e instanceof Error ? e.message : 'Failed to load more videos'

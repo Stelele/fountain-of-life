@@ -17,6 +17,7 @@
   "dependencies": {
     "@iconify-json/lucide": "^1.2.120",
     "@nuxt/ui": "^4.10.0",
+    "dexie": "^4.4.4",
     "vue": "^3.5.40",
     "vue-router": "^5.2.0"
   },
