@@ -1,38 +1,41 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
 import { usePwaInstall } from '@/composables/usePwaInstall'
 
-const { isInstallable, isIOS, install } = usePwaInstall()
-const iosDismissed = ref(false)
+const { isInstallable, isIOS, isStandalone, isDismissed, install, dismiss } = usePwaInstall()
 
-onMounted(() => {
-  iosDismissed.value = localStorage.getItem('pwa_ios_dismissed') === 'true'
-})
-
-function dismissIOS() {
-  iosDismissed.value = true
-  localStorage.setItem('pwa_ios_dismissed', 'true')
+function handleInstall() {
+  install()
 }
 </script>
 
 <template>
   <UAlert
-    v-if="isIOS && !iosDismissed"
+    v-if="isIOS && !isStandalone && !isDismissed"
     title="Install this app"
     description="Tap the Share button and select 'Add to Home Screen' to install Fountain of Life on your device."
     icon="i-lucide-download"
     color="primary"
     variant="subtle"
     class="mx-4 mt-2"
-    :close="{ icon: 'i-lucide-x', onClick: dismissIOS }"
-  />
+  >
+    <template #close>
+      <UButton icon="i-lucide-x" color="neutral" variant="link" @click="dismiss" />
+    </template>
+  </UAlert>
 
-  <UToast
-    v-if="isInstallable"
+  <UAlert
+    v-if="isInstallable && !isStandalone && !isDismissed"
     title="Install App"
     description="Add Fountain of Life to your home screen for quick access"
     icon="i-lucide-download"
-    :timeout="30000"
-    :actions="[{ label: 'Install', onClick: install }]"
-  />
+    color="primary"
+    variant="subtle"
+    orientation="horizontal"
+    class="mx-4 mt-2"
+    :actions="[{ label: 'Install', onClick: handleInstall }]"
+  >
+    <template #close>
+      <UButton icon="i-lucide-x" color="neutral" variant="link" @click="dismiss" />
+    </template>
+  </UAlert>
 </template>

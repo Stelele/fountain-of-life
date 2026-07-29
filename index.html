@@ -10,6 +10,14 @@
       document.documentElement.classList.remove('dark')
       document.documentElement.classList.add('light')
     </script>
+    <script>
+      window.__pwaDeferredPrompt = null
+      window.addEventListener('beforeinstallprompt', function (e) {
+        e.preventDefault()
+        window.__pwaDeferredPrompt = e
+        window.dispatchEvent(new CustomEvent('pwa-installable'))
+      })
+    </script>
     <meta name="theme-color" content="#854d0e">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
