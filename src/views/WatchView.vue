@@ -6,12 +6,12 @@ import { useNewVideosAlert } from '@/composables/useNewVideosAlert'
 import VideoGrid from '@/components/VideoGrid.vue'
 import VideoPlayer from '@/components/VideoPlayer.vue'
 
-const { videos, loading, loadingMore, error, hasMore, fetchRSS, loadMore } = useYouTube()
+const { videos, loading, loadingMore, error, hasMore, fetchVideos, loadMore } = useYouTube()
 const { newVideoCount, markLatestSeen } = useNewVideosAlert()
 const selectedVideo = ref<Video | null>(null)
 
 onMounted(async () => {
-  await fetchRSS()
+  await fetchVideos()
   if (videos.value[0]?.id) {
     markLatestSeen(videos.value[0].id)
   }
@@ -51,7 +51,7 @@ function onClosePlayer() {
         :has-more="hasMore"
         @select="onSelect"
         @load-more="loadMore"
-        @retry="fetchRSS"
+        @retry="fetchVideos"
       />
       <VideoPlayer :video="selectedVideo" @close="onClosePlayer" />
     </UPageBody>

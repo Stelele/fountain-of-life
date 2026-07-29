@@ -40,24 +40,6 @@ export default defineConfig(({ mode }) => ({
             },
           },
           {
-            urlPattern: /^https:\/\/api\.rss2json\.com\/.*/,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'youtube-rss',
-              expiration: { maxEntries: 5, maxAgeSeconds: 60 * 60 },
-              cacheableResponse: { statuses: [0, 200] },
-            },
-          },
-          {
-            urlPattern: /^https:\/\/www\.youtube\.com\/feeds\/.*/,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'youtube-rss-direct',
-              expiration: { maxEntries: 5, maxAgeSeconds: 60 * 60 },
-              cacheableResponse: { statuses: [0, 200] },
-            },
-          },
-          {
             urlPattern: /^https:\/\/www\.googleapis\.com\/youtube\/.*/,
             handler: 'NetworkFirst',
             options: {
@@ -73,15 +55,6 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
-  },
-  server: {
-    proxy: {
-      '/api/youtube-rss': {
-        target: 'https://www.youtube.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace('/api/youtube-rss', '/feeds/videos.xml'),
-      },
     },
   },
   build: {
