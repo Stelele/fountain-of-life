@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const testimonials = [
-  { quote: 'The teaching here has truly transformed my understanding of the Word.', author: 'Tendai M.', location: 'Harare' },
-  { quote: 'I found not just a church, but a family that genuinely cares.', author: 'Ruvimbo C.', location: 'Borrowdale' },
-  { quote: 'Every service leaves me encouraged, challenged, and closer to God.', author: 'Tafadzwa N.', location: 'Waterfalls' },
+  { quote: 'My faith has been revived by the testimonies and word hit deep that my life will never be the same again', author: 'Mai Murove', location: 'Mahatshula' },
+  { quote: 'The service and word transformed my life and continues to bring me closer to God.', author: 'Patience. S', location: 'Mpilo' },
+  { quote: 'l unlearn and learn new things everytime. The teachings, revelations and wisdom are helping me to be a better person each day', author: 'Mrs Muchena', location: 'Bulawayo' },
 ]
 </script>
 

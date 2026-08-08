@@ -1,5 +1,53 @@
 <script setup lang="ts">
-import { CHURCH_ADDRESS } from '@/data/churchInfo'
+import { onMounted, onUnmounted, ref } from 'vue'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
+import { CHURCH_ADDRESS, CHURCH_LAT, CHURCH_LNG } from '@/data/churchInfo'
+
+const mapContainer = ref<HTMLElement | null>(null)
+let map: L.Map | null = null
+
+const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${CHURCH_LAT},${CHURCH_LNG}`
+
+onMounted(() => {
+  if (!mapContainer.value) return
+
+  map = L.map(mapContainer.value, {
+    center: [CHURCH_LAT, CHURCH_LNG],
+    zoom: 16,
+    zoomControl: true,
+  })
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 19,
+  }).addTo(map)
+
+  const marker = L.marker([CHURCH_LAT, CHURCH_LNG]).addTo(map)
+
+  marker.bindPopup(
+    `<div class="leaflet-popup-content-wrapper">
+      <strong>${CHURCH_ADDRESS}</strong>
+      <br />
+      <a href="${directionsUrl}" target="_blank" rel="noopener noreferrer">
+        Get Directions ↗
+      </a>
+    </div>`,
+  )
+
+  marker.openPopup()
+
+  setTimeout(() => {
+    map?.invalidateSize()
+  }, 200)
+})
+
+onUnmounted(() => {
+  if (map) {
+    map.remove()
+    map = null
+  }
+})
 </script>
 
 <template>
@@ -7,18 +55,7 @@ import { CHURCH_ADDRESS } from '@/data/churchInfo'
     <template #header>
       <h2 class="text-highlighted text-lg font-semibold">Location</h2>
     </template>
-    <div class="aspect-video w-full overflow-hidden rounded-lg bg-zinc-100">
-      <iframe
-        src="https://www.openstreetmap.org/export/embed.html?bbox=30.95,-17.85,31.05,-17.75&layer=mapnik"
-        width="100%"
-        height="100%"
-        class="border-none"
-        loading="lazy"
-        title="Church location map"
-        sandbox="allow-scripts allow-same-origin"
-        referrerpolicy="no-referrer"
-      />
-    </div>
+    <div ref="mapContainer" class="aspect-video w-full overflow-hidden rounded-lg" />
     <p class="mt-3 text-sm text-zinc-500">{{ CHURCH_ADDRESS }}</p>
   </UCard>
 </template>
