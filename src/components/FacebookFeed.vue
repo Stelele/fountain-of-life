@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { WHATSAPP_GROUP_URL, FACEBOOK_URL, YOUTUBE_CHANNEL_URL, WHATSAPP_DISPLAY } from '@/data/churchInfo'
+import { WHATSAPP_GROUP_URL, FACEBOOK_URL, YOUTUBE_CHANNEL_URL, TIKTOK_URL, WHATSAPP_DISPLAY } from '@/data/churchInfo'
 import SocialLinkCard from '@/components/SocialLinkCard.vue'
 </script>
 
@@ -45,6 +45,19 @@ import SocialLinkCard from '@/components/SocialLinkCard.vue'
         button-label="Join Group"
         button-icon="i-lucide-message-circle"
         :url="WHATSAPP_GROUP_URL"
+      />
+
+      <USeparator />
+
+      <SocialLinkCard
+        icon="simple-icons:tiktok"
+        icon-bg-class="bg-primary/10"
+        icon-color-class="text-primary"
+        title="Follow us on TikTok"
+        description="Short clips, devotionals, and church highlights"
+        button-label="Open TikTok"
+        button-icon="i-lucide-external-link"
+        :url="TIKTOK_URL"
       />
     </div>
   </UCard>

@@ -5,7 +5,19 @@ export const WHATSAPP_DISPLAY = '+263 77 314 7693'
 export const WHATSAPP_GROUP_URL =
   'https://chat.whatsapp.com/DIWG80VqYIE8avJIKfK8fc?s=cl&p=a&ilr=0&amv=3'
 export const FACEBOOK_URL = 'https://www.facebook.com/share/14ngyaWEezU/'
-export const YOUTUBE_CHANNEL_ID = 'UCOAoHXW3nCre1EACIn-soIQ'
+export const TIKTOK_URL = 'https://www.tiktok.com/@fountain.of.life80'
+
+export interface YouTubeChannel {
+  id: string
+  name: string
+}
+
+export const YOUTUBE_CHANNELS: YouTubeChannel[] = [
+  { id: 'UCOAoHXW3nCre1EACIn-soIQ', name: 'Apostle Elvis Mayisiri' },
+  { id: 'UCHC_HOnJ-nJc8YCNsX3n6rw', name: 'Fountain of Life Family in Christ' },
+]
+
+export const YOUTUBE_CHANNEL_ID = YOUTUBE_CHANNELS[0]!.id
 export const YOUTUBE_CHANNEL_URL = `https://www.youtube.com/channel/${YOUTUBE_CHANNEL_ID}`
 export const EMAIL = 'aposteefountainoflife@gmail.com'
 export const CHURCH_ADDRESS = 'Palace Hotel Conference Room, First Floor, Bulawayo, Zimbabwe'

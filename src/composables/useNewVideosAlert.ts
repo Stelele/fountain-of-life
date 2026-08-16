@@ -1,5 +1,5 @@
 import { ref, onMounted } from 'vue'
-import { YOUTUBE_CHANNEL_ID } from '@/data/churchInfo'
+import { YOUTUBE_CHANNELS } from '@/data/churchInfo'
 
 const STORAGE_KEY = 'fountain_last_seen_video_id'
 const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY || ''
@@ -18,15 +18,31 @@ export function useNewVideosAlert() {
   async function checkForNewVideos(): Promise<void> {
     if (!API_KEY) return
     try {
-      const playlistId = YOUTUBE_CHANNEL_ID.replace(/^UC/, 'UU')
-      const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=1&playlistId=${playlistId}&key=${API_KEY}`
+      const latest = await Promise.all(
+        YOUTUBE_CHANNELS.map(async (channel) => {
+          const playlistId = channel.id.replace(/^UC/, 'UU')
+          const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=1&playlistId=${playlistId}&key=${API_KEY}`
 
-      const response = await fetch(url)
-      if (!response.ok) return
+          const response = await fetch(url)
+          if (!response.ok) return null
 
-      const data = await response.json()
-      const latestId = data.items?.[0]?.snippet?.resourceId?.videoId
-      if (!latestId) return
+          const data = await response.json()
+          const item = data.items?.[0]
+          if (!item?.snippet?.resourceId?.videoId) return null
+
+          return {
+            id: item.snippet.resourceId.videoId,
+            publishedAt: item.snippet.publishedAt,
+          }
+        }),
+      )
+
+      const newest = latest
+        .filter((item): item is { id: string; publishedAt: string } => item !== null)
+        .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())[0]
+
+      if (!newest) return
+      const latestId = newest.id
 
       const lastSeenId = safeGetItem(STORAGE_KEY)
       if (!lastSeenId) {

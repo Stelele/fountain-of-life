@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CHURCH_ADDRESS, WHATSAPP_DISPLAY, FACEBOOK_URL, SERVICE_TIMES, CHURCH_NAME, CHURCH_TAGLINE, CHURCH_SCRIPTURE, EMAIL } from '@/data/churchInfo'
+import { CHURCH_ADDRESS, WHATSAPP_DISPLAY, FACEBOOK_URL, TIKTOK_URL, SERVICE_TIMES, CHURCH_NAME, CHURCH_TAGLINE, CHURCH_SCRIPTURE, EMAIL } from '@/data/churchInfo'
 </script>
 
 <template>
@@ -35,6 +35,10 @@ import { CHURCH_ADDRESS, WHATSAPP_DISPLAY, FACEBOOK_URL, SERVICE_TIMES, CHURCH_N
             <div class="flex items-center gap-2">
               <UIcon name="i-lucide-facebook" class="text-highlighted text-sm" />
               <ULink :to="FACEBOOK_URL" target="_blank" class="text-primary-700 hover:underline">Facebook</ULink>
+            </div>
+            <div class="flex items-center gap-2">
+              <UIcon name="simple-icons:tiktok" class="text-highlighted text-sm" />
+              <ULink :to="TIKTOK_URL" target="_blank" class="text-primary-700 hover:underline">TikTok</ULink>
             </div>
           </div>
         </div>
