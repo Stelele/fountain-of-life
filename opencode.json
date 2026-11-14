@@ -6,6 +6,13 @@
       "url": "https://mcp.linear.app/mcp",
       "enabled": true,
       "oauth": {}
+    },
+    "servers": {
+      "nuxt-ui": {
+        "type": "remote",
+        "url": "https://ui.nuxt.com/mcp",
+        "disabled": false
+      }
     }
   }
 }
